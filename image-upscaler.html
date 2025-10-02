@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tool to upscale your images to 2K or 4K resolution. Enhance image quality with our AI-powered upscaler.">
+    <meta name="keywords" content="image upscale, 2K upscale, 4K upscale, image enhancement, photo quality improvement">
+    <meta name="author" content="Image Upscale Tool">
+    <title>Image Upscale Tool | Enhance to 2K/4K Resolution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-light: #8A85FF;
+            --secondary: #FF6B9D;
+            --accent: #4ECDC4;
+            --light: #F8F9FF;
+            --dark: #2D3047;
+            --gray: #8C8CA1;
+            --gray-light: #E6E6F0;
+            --success: #4CAF50;
+            --border-radius: 16px;
+            --box-shadow: 0 10px 30px rgba(108, 99, 255, 0.15);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #F8F9FF 0%, #E6E9FF 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            font-size: 1.75rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, var(--primary-light) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0 4rem;
+        }
+        
+        .tool-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .ad-section {
+            flex: 0 0 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .ad-container {
+            width: 100%;
+            min-height: 250px;
+            background: linear-gradient(135deg, var(--gray-light) 0%, #F0F0F8 100%);
+            border: 2px dashed var(--gray-light);
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            overflow: hidden;
+            padding: 1rem;
+        }
+        
+        .ad-container:hover {
+            border-color: var(--primary-light);
+        }
+        
+        .ad-instructions {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-align: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(108, 99, 255, 0.05);
+            border-radius: var(--border-radius);
+            width: 100%;
+        }
+        
+        .upload-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(108, 99, 255, 0.03);
+        }
+        
+        .upload-area:hover {
+            background: rgba(108, 99, 255, 0.08);
+            border-color: var(--primary);
+        }
+        
+        .upload-area.dragover {
+            background: rgba(108, 99, 255, 0.12);
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+        
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .upload-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .upload-subtext {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .upload-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+        }
+        
+        .image-preview {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .preview-img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .upscale-options {
+            margin: 2rem 0;
+        }
+        
+        .option-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .option-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .option-btn {
+            flex: 1;
+            padding: 1.25rem 1rem;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .option-btn:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .option-btn.active {
+            border-color: var(--primary);
+            background: rgba(108, 99, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.15);
+        }
+        
+        .upscale-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 1.25rem;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(108, 99, 255, 0.3);
+            margin-bottom: 1.5rem;
+        }
+        
+        .upscale-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+        
+        .upscale-btn:disabled {
+            background: var(--gray-light);
+            color: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .processing-area {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(108, 99, 255, 0.05);
+            border-radius: var(--border-radius);
+        }
+        
+        .processing-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(108, 99, 255, 0.2);
+            border-left: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .processing-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .processing-subtext {
+            color: var(--gray);
+        }
+        
+        .result-area {
+            display: none;
+            margin-top: 2rem;
+        }
+        
+        .result-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .comparison-container {
+            position: relative;
+            margin-bottom: 2rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .image-comparison {
+            display: flex;
+            position: relative;
+        }
+        
+        .image-wrapper {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-wrapper img {
+            width: 100%;
+            display: block;
+        }
+        
+        .image-label {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background: rgba(45, 48, 71, 0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+        
+        .comparison-slider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: white;
+            cursor: col-resize;
+            transform: translateX(-50%);
+        }
+        
+        .comparison-slider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .comparison-slider::after {
+            content: '⟷';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, var(--secondary), #FF8AB3);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.3);
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+        
+        .feature-desc {
+            color: var(--gray);
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: #B8B8CC;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #3D3F5C;
+            color: #8C8CA1;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .ad-section {
+                flex: 1 0 100%;
+                order: -1;
+            }
+            
+            .option-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        .file-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(108, 99, 255, 0.05);
+            border-radius: var(--border-radius);
+            display: none;
+        }
+        
+        .file-info p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+        
+        .file-info span {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .ad-banner {
+            width: 100%;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .ad-banner .ad-container {
+            min-height: 90px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-magic"></i>
+                    <span>UpscalePro</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Banner Ad -->
+        <div class="ad-banner">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-container" id="topBannerAd">
+                <!-- TOP BANNER AD - Replace with your AdSense code -->
+                <!-- 
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                         crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                -->
+                <i class="fas fa-ad" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>Top Banner Advertisement</p>
+                <small>Replace with your AdSense code</small>
+            </div>
+        </div>
+        
+        <section class="hero">
+            <h1>Upscale Your Images to <span class="highlight">4K Resolution</span></h1>
+            <p>Transform your low-resolution images into stunning high-definition masterpieces with our advanced AI technology. <strong>Completely FREE and UNLIMITED!</strong></p>
+        </section>
+        
+        <div class="main-content">
+            <section class="tool-section">
+                <div class="upload-container">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <p class="upload-text">Drag & drop your image here</p>
+                        <p class="upload-subtext">or click to browse files</p>
+                        <button class="upload-btn">Select Image</button>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="image-preview" id="imagePreview">
+                        <img class="preview-img" id="previewImage" src="" alt="Preview">
+                    </div>
+                    
+                    <div class="file-info" id="fileInfo">
+                        <p>File: <span id="fileName"></span></p>
+                        <p>Size: <span id="fileSize"></span></p>
+                        <p>Dimensions: <span id="fileDimensions"></span></p>
+                    </div>
+                </div>
+                
+                <div class="upscale-options">
+                    <h3 class="option-title">Select Upscale Level</h3>
+                    <div class="option-buttons">
+                        <div class="option-btn" data-value="2k">
+                            <div>2K Upscale</div>
+                            <small>Good for web & social media</small>
+                        </div>
+                        <div class="option-btn active" data-value="4k">
+                            <div>4K Upscale</div>
+                            <small>Perfect for prints & displays</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="upscale-btn" id="upscaleBtn" disabled>Upscale Image</button>
+                
+                <div class="processing-area" id="processingArea">
+                    <div class="processing-spinner"></div>
+                    <p class="processing-text">Upscaling Your Image...</p>
+                    <p class="processing-subtext">Enhancing details and increasing resolution</p>
+                </div>
+                
+                <div class="result-area" id="resultArea">
+                    <h3 class="result-title">Upscale Complete!</h3>
+                    <div class="comparison-container">
+                        <div class="image-comparison">
+                            <div class="image-wrapper">
+                                <img id="originalImage" src="" alt="Original Image">
+                                <div class="image-label">Before</div>
+                            </div>
+                            <div class="image-wrapper">
+                                <img id="upscaledImage" src="" alt="Upscaled Image">
+                                <div class="image-label">After</div>
+                            </div>
+                            <div class="comparison-slider"></div>
+                        </div>
+                    </div>
+                    <button class="download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download Upscaled Image
+                    </button>
+                </div>
+            </section>
+            
+            <!-- AD SECTION - This is the dedicated ad area -->
+            <section class="ad-section">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-container" id="sidebarAd1">
+                    <!-- SIDEBAR AD 1 - Replace with your AdSense code -->
+                    <!-- 
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                             crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    -->
+                    <i class="fas fa-ad" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>Sidebar Advertisement 1</p>
+                    <small>Replace with your AdSense code</small>
+                </div>
+                
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-container" id="sidebarAd2">
+                    <!-- SIDEBAR AD 2 - Replace with your AdSense code -->
+                    <!-- 
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                             crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    -->
+                    <i class="fas fa-ad" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>Sidebar Advertisement 2</p>
+                    <small>Replace with your AdSense code</small>
+                </div>
+                
+                <div class="ad-instructions">
+                    <p><strong>AdSense Integration:</strong> Replace the placeholder content with your AdSense code in the designated areas above.</p>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Bottom Banner Ad -->
+        <div class="ad-banner">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-container" id="bottomBannerAd">
+                <!-- BOTTOM BANNER AD - Replace with your AdSense code -->
+                <!-- 
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                         crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                -->
+                <i class="fas fa-ad" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>Bottom Banner Advertisement</p>
+                <small>Replace with your AdSense code</small>
+            </div>
+        </div>
+        
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="feature-title">Lightning Fast</h3>
+                <p class="feature-desc">Upscale images in seconds with our optimized AI algorithms</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-infinity"></i>
+                </div>
+                <h3 class="feature-title">Unlimited Usage</h3>
+                <p class="feature-desc">No restrictions on the number of images you can upscale</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Privacy First</h3>
+                <p class="feature-desc">Your images are processed securely and never stored on our servers</p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>UpscalePro</h3>
+                    <p>Transform your images with our advanced AI upscaling technology. Free, fast, and unlimited.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support@upscalepro.com">support@upscalepro.com</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Report Issue</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 UpscalePro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const upscaleBtn = document.getElementById('upscaleBtn');
+            const optionButtons = document.querySelectorAll('.option-btn');
+            const previewImage = document.getElementById('previewImage');
+            const imagePreview = document.getElementById('imagePreview');
+            const originalImage = document.getElementById('originalImage');
+            const upscaledImage = document.getElementById('upscaledImage');
+            const resultArea = document.getElementById('resultArea');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const processingArea = document.getElementById('processingArea');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const fileDimensions = document.getElementById('fileDimensions');
+            
+            let selectedOption = '4k';
+            let currentFile = null;
+            let originalImageData = null;
+            
+            // Upload area click event
+            uploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            // File input change event
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    handleFileSelection(e.target.files[0]);
+                }
+            });
+            
+            // Drag and drop functionality
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                
+                if (e.dataTransfer.files.length > 0) {
+                    handleFileSelection(e.dataTransfer.files[0]);
+                }
+            });
+            
+            // Option buttons event
+            optionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    optionButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedOption = this.getAttribute('data-value');
+                });
+            });
+            
+            // Upscale button event
+            upscaleBtn.addEventListener('click', function() {
+                if (!currentFile) return;
+                
+                // Show processing area
+                processingArea.style.display = 'block';
+                upscaleBtn.disabled = true;
+                
+                // Hide image preview during processing
+                imagePreview.style.display = 'none';
+                
+                // Simulate upscaling process (in a real app, this would be an API call)
+                setTimeout(function() {
+                    // Hide processing area
+                    processingArea.style.display = 'none';
+                    
+                    // Show result area
+                    resultArea.style.display = 'block';
+                    
+                    // For demo purposes, we'll use the same image but simulate enhancement
+                    // In a real implementation, you would receive the upscaled image from your backend
+                    const img = new Image();
+                    img.onload = function() {
+                        // Create a canvas to "upscale" the image
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // Calculate new dimensions based on selected option
+                        let scaleFactor = selectedOption === '2k' ? 2 : 4;
+                        canvas.width = img.width * scaleFactor;
+                        canvas.height = img.height * scaleFactor;
+                        
+                        // Draw the image with smoothing for a better look
+                        ctx.imageSmoothingEnabled = true;
+                        ctx.imageSmoothingQuality = 'high';
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        
+                        // Apply some enhancement filters to simulate AI upscaling
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const data = imageData.data;
+                        
+                        // Simple sharpening effect
+                        for (let i = 0; i < data.length; i += 4) {
+                            // Increase contrast slightly
+                            data[i] = Math.min(255, data[i] * 1.05);     // Red
+                            data[i+1] = Math.min(255, data[i+1] * 1.05); // Green
+                            data[i+2] = Math.min(255, data[i+2] * 1.05); // Blue
+                        }
+                        
+                        ctx.putImageData(imageData, 0, 0);
+                        
+                        // Set the upscaled image
+                        upscaledImage.src = canvas.toDataURL('image/jpeg', 0.95);
+                        
+                        // Initialize comparison slider
+                        initComparisonSlider();
+                    };
+                    img.src = originalImageData;
+                    
+                    // Enable download button
+                    downloadBtn.disabled = false;
+                    
+                    // Re-enable upscale button
+                    upscaleBtn.disabled = false;
+                }, 3000);
+            });
+            
+            // Download button event
+            downloadBtn.addEventListener('click', function() {
+                if (!upscaledImage.src) return;
+                
+                // Create a temporary link to trigger download
+                const link = document.createElement('a');
+                link.href = upscaledImage.src;
+                link.download = `upscaled-${currentFile.name.replace(/\.[^/.]+$/, "")}.jpg`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+            
+            // Handle file selection
+            function handleFileSelection(file) {
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file (JPEG, PNG, etc.).');
+                    return;
+                }
+                
+                currentFile = file;
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    originalImageData = e.target.result;
+                    previewImage.src = originalImageData;
+                    originalImage.src = originalImageData;
+                    
+                    // Show image preview
+                    imagePreview.style.display = 'block';
+                    
+                    // Show file info
+                    fileName.textContent = file.name;
+                    fileSize.textContent = formatFileSize(file.size);
+                    
+                    // Get image dimensions
+                    const img = new Image();
+                    img.onload = function() {
+                        fileDimensions.textContent = `${img.width} × ${img.height} pixels`;
+                        fileInfo.style.display = 'block';
+                    };
+                    img.src = originalImageData;
+                    
+                    // Enable upscale button
+                    upscaleBtn.disabled = false;
+                    
+                    // Reset result area
+                    resultArea.style.display = 'none';
+                    upscaledImage.src = '';
+                    downloadBtn.disabled = true;
+                };
+                
+                reader.readAsDataURL(file);
+            }
+            
+            // Format file size
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' bytes';
+                else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+                else return (bytes / 1048576).toFixed(1) + ' MB';
+            }
+            
+            // Initialize comparison slider
+            function initComparisonSlider() {
+                const slider = document.querySelector('.comparison-slider');
+                const container = document.querySelector('.comparison-container');
+                const beforeImg = document.querySelector('#originalImage').parentElement;
+                
+                let isResizing = false;
+                
+                slider.addEventListener('mousedown', function(e) {
+                    isResizing = true;
+                    e.preventDefault();
+                });
+                
+                document.addEventListener('mousemove', function(e) {
+                    if (!isResizing) return;
+                    
+                    const containerRect = container.getBoundingClientRect();
+                    let x = e.clientX - containerRect.left;
+                    
+                    // Constrain the slider within the container
+                    if (x < 0) x = 0;
+                    if (x > containerRect.width) x = containerRect.width;
+                    
+                    // Calculate the percentage
+                    const percent = (x / containerRect.width) * 100;
+                    
+                    // Set the width of the before image
+                    beforeImg.style.width = `${percent}%`;
+                    
+                    // Position the slider
+                    slider.style.left = `${percent}%`;
+                });
+                
+                document.addEventListener('mouseup', function() {
+                    isResizing = false;
+                });
+                
+                // Touch events for mobile
+                slider.addEventListener('touchstart', function(e) {
+                    isResizing = true;
+                    e.preventDefault();
+                });
+                
+                document.addEventListener('touchmove', function(e) {
+                    if (!isResizing) return;
+                    
+                    const containerRect = container.getBoundingClientRect();
+                    let x = e.touches[0].clientX - containerRect.left;
+                    
+                    // Constrain the slider within the container
+                    if (x < 0) x = 0;
+                    if (x > containerRect.width) x = containerRect.width;
+                    
+                    // Calculate the percentage
+                    const percent = (x / containerRect.width) * 100;
+                    
+                    // Set the width of the before image
+                    beforeImg.style.width = `${percent}%`;
+                    
+                    // Position the slider
+                    slider.style.left = `${percent}%`;
+                });
+                
+                document.addEventListener('touchend', function() {
+                    isResizing = false;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
